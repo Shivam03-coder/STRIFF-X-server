@@ -18,7 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 import { Projectroute } from "./routes/projectRoute";
+import { Tasksroute } from "./routes/tasksRoutes";
 app.use("/api/v1/stiffx", Projectroute);
+app.use("/api/v1/stiffx", Tasksroute);
 
 app.use((err: ApiError, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
