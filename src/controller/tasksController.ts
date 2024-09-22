@@ -76,8 +76,33 @@ export const createTasksController = AsyncHandler(
       });
       res.json(new Apiresponse(201, { data: newTasks }, "New Task created"));
     } catch (error) {
-      console.log("🚀 ~ error:", error)
+      console.log("🚀 ~ error:", error);
       throw new ApiError(500, "An error occurred while creating the Task");
+    }
+  }
+);
+
+export const updateTaskStatusController = AsyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const { taskId } = req.query;
+    const { status } = req.body;
+    // VALIDATING PROJECT ID
+    if (!taskId) {
+      throw new ApiError(400, "Task id not found");
+    }
+    try {
+      const updatedTask = await prisma.task.update({
+        where: {
+          id: Number(taskId),
+        },
+        data: {
+          status,
+        },
+      });
+      res.json(new Apiresponse(200, { data: updatedTask }));
+    } catch (error) {
+      console.log("Error:", error);
+      throw new ApiError(500, "An error occurred while updating Task");
     }
   }
 );
