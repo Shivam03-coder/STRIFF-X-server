@@ -40,23 +40,11 @@ export const createTasksController = AsyncHandler(
       description,
       status,
       priority,
-      tags,
       startDate,
       dueDate,
-      points,
       projectId,
       authorUserId,
-      assignedUserId,
     } = req.body;
-
-    // CHECK REQUIRED FEILDS
-
-    if (!title || !projectId || !authorUserId) {
-      throw new ApiError(
-        400,
-        "Fields 'title' ,'projectId'  and 'authorUserId' cannot be blank"
-      );
-    }
 
     try {
       const newTasks = await prisma.task.create({
@@ -65,13 +53,10 @@ export const createTasksController = AsyncHandler(
           description,
           status,
           priority,
-          tags,
           startDate,
           dueDate,
-          points,
           projectId,
           authorUserId,
-          assignedUserId,
         },
       });
       res.json(new Apiresponse(201, { data: newTasks }, "New Task created"));
