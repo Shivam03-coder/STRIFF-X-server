@@ -1,3 +1,4 @@
+import { TeamRoutes } from './routes/teamRoutes';
 import { UsersRoutes } from './routes/userRoutes';
 import { SearchRoutes } from './routes/searchRoute';
 import { Request, Response, NextFunction } from "express";
@@ -30,6 +31,7 @@ app.use("/api/v1/stiffx", Projectroute);
 app.use("/api/v1/stiffx", Tasksroute);
 app.use("/api/v1/stiffx", SearchRoutes);
 app.use("/api/v1/stiffx", UsersRoutes);
+app.use("/api/v1/stiffx", TeamRoutes);
 
 app.use((err: ApiError, req: Request, res: Response) => {
   if (err instanceof ApiError) {
